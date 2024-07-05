@@ -7,7 +7,6 @@ declare_id!("YOUR_PROGRAM_ID_HERE");
 pub mod mytoken {
     use super::*;
 
-    // Initialization function with unchecked user authority
     pub fn initialize(ctx: Context<Initialize>, total_supply: u64) -> Result<()> {
         let cpi_accounts = token::MintTo {
             mint: ctx.accounts.mint.to_account_info(),
@@ -21,12 +20,11 @@ pub mod mytoken {
         Ok(())
     }
 
-    // Transfer function without proper authority checks
     pub fn transfer(ctx: Context<TransferTokens>, amount: u64) -> Result<()> {
         let cpi_accounts = Transfer {
             from: ctx.accounts.from.to_account_info(),
             to: ctx.accounts.to.to_account_info(),
-            authority: ctx.accounts.authority.to_account_info(), // 
+            authority: ctx.accounts.authority.to_account_info(), 
         };
         let cpi_program = ctx.accounts.token_program.to_account_info();
         let cpi_ctx = CpiContext::new(cpi_program, cpi_accounts);
