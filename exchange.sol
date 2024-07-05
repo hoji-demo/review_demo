@@ -35,7 +35,6 @@ contract ObscureDEX {
         emit PoolAdded(msg.sender, assetA, assetB, poolShare);
     }
 
-    // Remove assets from the pool (Reentrancy Vulnerability)
     function removePool(uint256 poolShare) public {
         require(providers[msg.sender].poolShare >= poolShare, "Not enough pool share");
 
